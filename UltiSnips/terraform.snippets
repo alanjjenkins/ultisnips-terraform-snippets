@@ -1,7 +1,8 @@
 # variable
 snippet var "variable"
 variable "${1:name}" {
-  ${1}
+	type = "${2}"
+  default="${3}"
 }
 endsnippet
 
@@ -146,6 +147,23 @@ resource "aws_s3_bucket" "${1:name}" {
       index_document = "${5:index.html}"
       error_document = "${6:error.html}"
   }
+}
+endsnippet
+
+snippet resource_aws_lambda
+resource "aws_lambda_function" "${1:name}" {
+	function_name    = "${2:function_name}"
+	filename         = "${3:filename}"
+	source_code_hash = "${base64sha256(file("${4:filename}"))}"
+	runtime          = "${5:runtime}"
+	handler          = "${6:handler}"
+	role             = "${7:role}"
+
+	environment {
+		variables {
+			${8:vars}
+		}
+	}
 }
 endsnippet
 
