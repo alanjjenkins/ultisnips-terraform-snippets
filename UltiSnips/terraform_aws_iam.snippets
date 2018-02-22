@@ -1,0 +1,34 @@
+snippet resource_aws_iam_role
+resource "aws_iam_role" "${1:name}" {
+  name               = "${2:name}"
+	assume_role_policy = "${3:policy_json}"
+}
+endsnippet
+
+snippet resource_iam_policy
+resource "aws_iam_policy" "${1:name}" {
+  name        = "${2:name}"
+	description = "${3:description}"
+	path        = "${4:/}"
+	policy      = "${aws_iam_policy_document.${5:document_name}.json}"
+}
+endsnippet
+
+snippet data_lambda_assume_role_policy
+data "aws_iam_policy_document" "lambda_assume_role" {
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    principals {
+      type = "Service"
+
+      identifiers = [
+        "lambda.amazonaws.com",
+        "apigateway.amazonaws.com"
+      ]
+    }
+  }
+}
+endsnippet
