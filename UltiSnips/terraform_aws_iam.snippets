@@ -14,6 +14,24 @@ resource "aws_iam_policy" "${1:name}" {
 }
 endsnippet
 
+snippet data_iam_policy_document
+data "aws_iam_policy_document" "${1:name}" {
+  statement {
+    actions = [
+			${2}
+    ]
+
+		resources = [
+			${3}
+		]
+
+    principals {
+			${4}
+    }
+  }
+}
+endsnippet
+
 snippet data_lambda_assume_role_policy
 data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
